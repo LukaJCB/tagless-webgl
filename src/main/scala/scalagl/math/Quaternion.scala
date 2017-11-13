@@ -1,4 +1,4 @@
-package scalagl
+package scalagl.math
 
 case class Quaternion(x: Float, y: Float, z: Float, w: Float) {
   def vector: Vector4 = Vector4(x, y, z, w)

@@ -1,8 +1,10 @@
+package scalagl
+
 import cats._
 import cats.arrow.FunctionK
+import cats.effect._
 import cats.implicits._
 import fs2._
-import cats.effect._
 
 import scala.concurrent.ExecutionContext
 
@@ -31,15 +33,6 @@ object ParIO {
   }
 }
 
-object Test {
-  import scala.concurrent.ExecutionContext.Implicits.global
-  import ParIO._
-
-  val x = IO.pure("asd")
-  val y = IO.pure(234)
-
-  (x, y).parMapN(_ + _)
-}
 
 case class Par[F[_], A](value: F[A])
 
@@ -64,14 +57,4 @@ object Par {
     override def sequential = Lambda[Par[F, ?] ~> F](_.value)
     def parallel = Lambda[F ~> Par[F, ?]](g => Par(g))
   }
-}
-
-object TestPar {
-  import scala.concurrent.ExecutionContext.Implicits.global
-  import Par._
-
-  val x = IO.pure("asd")
-  val y = IO.pure(234)
-
-  (x, y).parMapN(_ + _)
 }

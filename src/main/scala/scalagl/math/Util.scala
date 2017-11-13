@@ -1,4 +1,4 @@
-package scalagl
+package scalagl.math
 
 object Util {
   def clamp(value: Float, min: Float, max: Float): Float = {

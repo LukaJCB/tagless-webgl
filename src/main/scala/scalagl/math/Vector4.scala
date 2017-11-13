@@ -1,4 +1,4 @@
-package scalagl
+package scalagl.math
 
 import scala.scalajs.js
 

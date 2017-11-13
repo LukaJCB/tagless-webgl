@@ -10,7 +10,8 @@ libraryDependencies ++= Seq(
   "org.typelevel" %%% "cats-core" % "1.0.0-RC1",
   "org.typelevel" %%% "cats-effect" % "0.5",
   "org.scala-js" %%% "scalajs-dom" % "0.9.2",
-  "co.fs2" %%% "fs2-core" % "0.10.0-M8"
+  "co.fs2" %%% "fs2-core" % "0.10.0-M8",
+  "io.monix" %%% "monix" % "3.0.0-M2"
 )
 
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.4")

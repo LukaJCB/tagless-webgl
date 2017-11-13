@@ -1,8 +1,4 @@
-package scalagl
-
-import java.nio.FloatBuffer
-
-import cats.instances.float
+package scalagl.math
 
 import scala.scalajs.js
 
@@ -88,22 +84,109 @@ object Matrix4 {
       translation.x, translation.y, translation.z, 1)
   }
 
-  def setRotateAround(x: Float, y: Float, rotation: Float) = {
+  def setRotateAround(x: Float, y: Float, rotation: Float, offsetY: Float, offsetZ: Float): Matrix4 = {
 
-    var camPos = Vector4(0, 0, 0, 1)
-    var rotationMatrix = forRotation(Quaternion(rotation, 0, 0, rotation)) * forTranslation(Vector4(0, 0.8f, 0, 0))
-    //multiply with the matrix
-
-    val eyePos = rotationMatrix * camPos
-
-    //translate to position of lookat-target
-    eyePos.copy(x = eyePos.x + x, y = eyePos.y + y, z = 2 - 1.5f)
-
+    val eyePos = rotateAround(x, y, rotation, offsetY, offsetZ)
 
     setLookAtM(
       eyePos(0), eyePos(1), eyePos(2),
       x, y, 0,
       0, 0, 1)
+  }
+
+  def rotateAround(x: Float, y: Float, rotation: Float, offsetY: Float, offsetZ: Float): Vector4 = {
+    var camPos = Vector4(0, 0, 0, 1)
+    var rotationMatrix =
+      setRotationRad(rotation, 0, 0, 1) * forTranslation(Vector4(0, offsetY, 0, 0))
+    //multiply with the matrix
+
+    val eyePos = rotationMatrix * camPos
+
+    //translate to position of lookat-target
+    eyePos.copy(x = eyePos.x + x, y = eyePos.y + y, z = offsetZ)
+  }
+
+  def setRotationRad(rad: Float, dirX: Float, dirY: Float, dirZ: Float): Matrix4 = {
+    val rm: js.Array[Float] = js.Array()
+
+    var a = rad
+    var x = dirX
+    var y = dirY
+    var z = dirZ
+
+    rm(3) = 0
+    rm(7) = 0
+    rm(11)= 0
+    rm(12)= 0
+    rm(13)= 0
+    rm(14)= 0
+    rm(15)= 1
+    a *= (Math.PI / 180.0f).toFloat
+    val s = Math.sin(rad).toFloat
+    val c = Math.cos(rad).toFloat
+    if (1.0f == x && 0.0f == y && 0.0f == z) {
+      rm(5) = c
+      rm(6) = s
+      rm(1) = 0
+      rm(4) = 0
+      rm(0) = 1
+      rm(10)= c
+      rm(9) = -s
+      rm(2) = 0
+      rm(8) = 0
+
+      Matrix4.fromFloat(rm)
+    } else if (0.0f == x && 1.0f == y && 0.0f == z) {
+      rm(0) = c
+      rm(8) = s
+      rm(1) = 0
+      rm(6) = 0
+      rm(5) = 1
+      rm(10)= c
+      rm(2) = -s
+      rm(4) = 0
+      rm(9) = 0
+
+      Matrix4.fromFloat(rm)
+    } else if (0.0f == x && 0.0f == y && 1.0f == z) {
+      rm(0) = c
+      rm(1) = s
+      rm(2) = 0
+      rm(8) = 0
+      rm(10)= 1
+      rm(5) = c
+      rm(4) = -s
+      rm(6) = 0
+      rm(9) = 0
+
+      Matrix4.fromFloat(rm)
+    } else {
+      val len = length(x, y, z)
+      if (1.0f != len) {
+        val recipLen = 1.0f / len
+        x *= recipLen
+        y *= recipLen
+        z *= recipLen
+      }
+      val nc = 1.0f - c
+      val xy = x * y
+      val yz = y * z
+      val zx = z * x
+      val xs = x * s
+      val ys = y * s
+      val zs = z * s
+      rm( 0) = x*x*nc +  c
+      rm( 4) =  xy*nc - zs
+      rm( 8) =  zx*nc + ys
+      rm( 1) =  xy*nc + zs
+      rm( 5) = y*y*nc +  c
+      rm( 9) =  yz*nc - xs
+      rm( 2) =  zx*nc - ys
+      rm( 6) =  yz*nc + xs
+      rm(10) = z*z*nc +  c
+
+      Matrix4.fromFloat(rm)
+    }
   }
 
   def forScale(scale: Vector4): Matrix4 = {
