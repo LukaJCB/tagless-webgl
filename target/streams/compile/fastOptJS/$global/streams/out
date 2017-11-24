@@ -1,0 +1,16 @@
+[0m[[0minfo[0m] [0mFast optimizing /Users/luka/proj/tagless-webgl/target/scala-2.12/tagless-webgl-fastopt.js[0m
+[0m[[0mdebug[0m] [0mLinker: Compute reachability: 83932 us[0m
+[0m[[0mdebug[0m] [0mLinker: Assemble LinkedClasses: 55261 us[0m
+[0m[[0mdebug[0m] [0mBasic Linking: 142537 us[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Batch mode: false[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Incremental part: 14401 us[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Optimizing 51 methods.[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Optimizer part: 20544 us[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: 38308 us[0m
+[0m[[0mdebug[0m] [0mRefiner: Compute reachability: 96170 us[0m
+[0m[[0mdebug[0m] [0mRefiner: Assemble LinkedClasses: 4707 us[0m
+[0m[[0mdebug[0m] [0mRefiner: 100973 us[0m
+[0m[[0mdebug[0m] [0mEmitter: Class tree cache stats: reused: 1180 -- invalidated: 68[0m
+[0m[[0mdebug[0m] [0mEmitter: Method tree cache stats: resued: 3184 -- invalidated: 34[0m
+[0m[[0mdebug[0m] [0mEmitter (write output): 69120 us[0m
+[0m[[0mdebug[0m] [0mGlobal IR cache stats: reused: 15 -- invalidated: 102 -- trees read: 69[0m
