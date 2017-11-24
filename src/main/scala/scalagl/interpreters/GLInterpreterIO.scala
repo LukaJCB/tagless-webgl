@@ -17,7 +17,7 @@ object GLInterpreterIO extends WebGL[IO] {
   //TODO Memoize this in IO
   private lazy val can: Canvas = dom.document.createElement("canvas").asInstanceOf[dom.html.Canvas]
   can.width = dom.window.innerWidth.toInt
-  can.height = dom.window.innerHeight.toInt
+  can.height = (can.width.toFloat * 0.46).toInt
 
   private lazy val context = can.getContext("webgl").asInstanceOf[dom.raw.WebGLRenderingContext]
 

@@ -14,13 +14,13 @@ import scalagl.algebra.Dom
 object DomInterpreterIO extends Dom[IO] {
   def appendToBody(c: Canvas): IO[Unit] = IO(dom.document.body.appendChild(c))
 
-  def createImageElement(url: String): IO[HTMLImageElement] = LiftIO[IO].liftIO(IO.async { cb =>
+  def createImageElement(url: String): IO[HTMLImageElement] = IO.async { cb =>
     val element = dom.document.createElement("img").asInstanceOf[HTMLImageElement]
     element.onload = (_: dom.Event) => cb(Right(element))
     element.src = url
 
     element.addEventListener("error", (e: Event) => cb(Left(new Throwable(e.toString))))
-  })
+  }
 
   def renderLoop[A](seed: A, cb: (A, Double) => IO[A]): IO[Unit] = {
 
