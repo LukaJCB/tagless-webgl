@@ -75,7 +75,7 @@ object Program2Point5D {
 
       _ <- W.clearScreen(0, 0, 0, 1)
 
-      _ <- program.toList.traverse { p =>
+      _ <- program.traverse { p =>
         W.drawImage(p, track, projectionView * trackTranslation * trackScale) *>
         W.drawImage(p, car, projectionView * carRotation * carScale)
       }

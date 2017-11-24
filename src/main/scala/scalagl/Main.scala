@@ -9,7 +9,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     EngineProgram
-      .simpleRace(new RenderEngineInterpreterWebGL(new DrawImageInterpreterWebGL(GLInterpreterIO), DomInterpreterIO))
+      .simpleRace(new RenderEngineInterpreterDrawImage(new DrawImageInterpreterWebGL(GLInterpreterIO), DomInterpreterIO))
       .unsafeRunAsync {
         case Left(t) => println(t)
         case _ => ()

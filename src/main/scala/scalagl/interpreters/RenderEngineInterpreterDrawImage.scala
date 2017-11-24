@@ -26,7 +26,7 @@ object InitializationError {
 
 case class RenderContext(program: WebGLProgram, textures: SortedMap[String, WebGLTexture], projection: Matrix4)
 
-class RenderEngineInterpreterWebGL[F[_]: Monad](W: DrawImage[F], D: Dom[F])
+class RenderEngineInterpreterDrawImage[F[_]: Monad](W: DrawImage[F], D: Dom[F])
   extends RenderEngine[F, InitializationOptions, InitializationError, RenderContext, WebGLTexture] {
 
   val vertSrc =

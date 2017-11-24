@@ -37,8 +37,6 @@ object EngineProgram {
 
         newObj.copy(pos = newObj.pos.copy(x = newObj.pos.x + dx, y = newObj.pos.y + dy))
 
-      } else if (keys.contains(Key(KeyCode.Down))) {
-        old.copy(pos = old.pos.copy(y = old.pos.y - speed))
       } else if (keys.contains(Key(KeyCode.Left)))
         old.copy(rotation = old.rotation + rotationSpeed)
       else if (keys.contains(Key(KeyCode.Right)))
@@ -70,8 +68,6 @@ object EngineProgram {
       newCam.copy(lookAt = newCam.lookAt.copy(x = newCam.lookAt.x + dx, y = newCam.lookAt.y + dy),
         camPos = newCam.camPos.copy(x = newCam.camPos.x + dx, y = newCam.camPos.y + dy))
 
-    } else if (keys.contains(Key(KeyCode.Down))) {
-      Camera(old.camPos.copy(y = old.camPos.y - speed), old.lookAt.copy(y = old.lookAt.y - speed))
     } else if (keys.contains(Key(KeyCode.Left))) {
       val eye =
         Matrix4.rotateAround(old.lookAt.x, old.lookAt.y, old.lookAt.w + rotationSpeed, offsetY, offsetZ)
